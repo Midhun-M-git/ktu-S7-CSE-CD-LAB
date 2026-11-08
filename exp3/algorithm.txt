@@ -1,0 +1,12 @@
+1.start
+2.Create the header definition
+ 2.1:import the headers.
+ 2.2:intitialize the variables to store the count.
+3.Create the rule section
+3.1: [^ \t\n\r] , increment words. And set character = character + yyleng()
+3.2: [\t] increment character
+3.3: [\n] increment lines.
+4.intilize main
+4.1:ask user to enter string
+4.2:print number of lines,words and character.
+5.stop
