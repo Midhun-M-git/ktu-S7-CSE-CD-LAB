@@ -1,0 +1,9 @@
+1.start
+2.create header definition 
+2.1 import the headers.
+3.create the rule section
+3.1 if abc is found print ABC 
+4.initilize the main function
+4.1:ask user to enter string
+4.2:print the converted string.
+5.stop.
