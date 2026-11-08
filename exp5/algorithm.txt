@@ -1,0 +1,11 @@
+1.Start
+2.Create Header Definition
+2.1.import header files
+2.2.intitilze variables to store vowels and consonents.
+3.Create rule section
+3.1 if [AEIOUaeiou] ,increment vowel
+3.2 else increment consonent.
+4.initilize main function.
+4.1:ask user to enter the string 
+4.2:print the count of vowel and consonent 
+5.stop
