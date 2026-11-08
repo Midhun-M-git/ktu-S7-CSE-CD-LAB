@@ -1,0 +1,11 @@
+1.start
+2.create the header definition
+3.import the headers.
+4.create the rule section
+4.1:if 0-9 ,combination print digit
+4.2:if a-zA_z0-9 combination print  identefier
+4.3:if +/-*. print operator
+4.4: if ();:{} print seperator
+5.intialize main
+5.1. make users to enter input.
+6.stop
