@@ -1,0 +1,14 @@
+Algorithm YAAC
+step 1: start
+step 2: Create the header definition
+ step 2.1:import the headers
+ step 2.2:intilize the yylex() function
+ step 2.3:initilize the yyerror(const char *s). function
+step 3:create a token  LETTER
+step 4:if LETTER|tail LETTER | LETTER tail |/*empty*  print as identifier
+step 5:else print invalid identifier
+step 7:intilize main function
+ step 7.1:ask user to enter the string 
+ step 7.2:return yyparse()
+step 8: stop
+
