@@ -1,0 +1,11 @@
+Algorithm for Three-Address Code / Intermediate Code Processing:
+Step 1: Start
+Step 2: Include standard I/O, memory allocation, and string handling header files.
+Step 3: Define a helper function readline() to dynamically allocate and read input lines until EOF or null terminator.
+Step 4: In main(), initialize an array of strings to store input expressions.
+Step 5: Read expressions iteratively using readline() until the user enters "END".
+Step 6: Iterate through the collected expressions:
+  6.1: Parse the line into left-hand side variable, first operand, arithmetic operator, and second operand using pattern matching.
+  6.2: Output the corresponding intermediate / assembly code instruction (e.g., MOV AX, operand).
+Step 7: Free allocated memory and return 0.
+Step 8: Stop

@@ -1,0 +1,82 @@
+name: CI Build & Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build & Verify Lab Experiments
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Compiler Tools (GCC, Flex, Bison)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc flex bison libfl-dev
+
+      - name: Build C-based Experiments (Exp 1, 9, 13)
+        run: |
+          echo "Compiling Exp 1 (Lexical Analyzer in C)..."
+          gcc -Wall -Wextra exp1/lex.c -o exp1_bin
+
+          echo "Compiling Exp 9 (Three-Address Code)..."
+          gcc -Wall -Wextra exp9/tac.c -o exp9_bin
+
+          echo "Compiling Exp 13 (Target Code Generation)..."
+          gcc -Wall -Wextra exp13/targetcodegeneration.c -o exp13_bin
+
+      - name: Build Lex-based Experiments (Exp 2, 3, 4, 5)
+        run: |
+          echo "Compiling Exp 2 (Lexical Analyzer using LEX)..."
+          flex -o exp2_lex.c exp2/lex.l
+          gcc exp2_lex.c -lfl -o exp2_bin
+
+          echo "Compiling Exp 3 (Word, Line & Character Counter)..."
+          flex -o exp3_lex.c exp3/words.l
+          gcc exp3_lex.c -lfl -o exp3_bin
+
+          echo "Compiling Exp 4 (Replace abc with ABC)..."
+          flex -o exp4_lex.c exp4/abc.l
+          gcc exp4_lex.c -lfl -o exp4_bin
+
+          echo "Compiling Exp 5 (Vowel and Consonant Counter)..."
+          flex -o exp5_lex.c exp5/vowel.l
+          gcc exp5_lex.c -lfl -o exp5_bin
+
+      - name: Build Lex & Yacc Experiments (Exp 6, 7, 8)
+        run: |
+          echo "Compiling Exp 6 (Arithmetic Expression Validation)..."
+          (cd exp6 && bison -d expr.y -o expr.tab.c && flex -o lex.yy.c expr.l && gcc expr.tab.c lex.yy.c -lfl -o expr_bin)
+
+          echo "Compiling Exp 7 (Identifier Validation)..."
+          (cd exp7 && bison -d indenty.y -o indenty.tab.c && flex -o lex.yy.c indenty.l && gcc indenty.tab.c lex.yy.c -lfl -o indenty_bin)
+
+          echo "Compiling Exp 8 (Arithmetic Evaluator / Calculator)..."
+          (cd exp8 && bison -d calc.y -o calc.tab.c && flex -o lex.yy.c calc.l && gcc calc.tab.c lex.yy.c -lfl -o calc_bin)
+
+      - name: Smoke Test Core Executables
+        run: |
+          echo "Testing Exp 1..."
+          echo "int a = 10;" | ./exp1_bin
+
+          echo "Testing Exp 4..."
+          echo "abc test abc" | ./exp4_bin
+
+          echo "Testing Exp 5..."
+          echo "Compiler" | ./exp5_bin
+
+          echo "Testing Exp 6..."
+          echo "a + b * c" | ./exp6/expr_bin
+
+          echo "Testing Exp 7..."
+          echo "validId1" | ./exp7/indenty_bin
+
+          echo "Testing Exp 8..."
+          echo "10 + 20" | ./exp8/calc_bin
